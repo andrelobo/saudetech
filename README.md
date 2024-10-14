@@ -1,7 +1,4 @@
 <br />
-<a href="https://youtu.be/lEflo_sc82g?feature=shared" target="_blank">
-  <img src="https://github.com/adrianhajdin/healthcare/assets/151519281/a7dd73b6-93de-484d-84e0-e7f4e299167b" alt="Banner do Projeto">
-</a>
 <br />
 
 <div>
@@ -11,7 +8,7 @@
   <img src="https://img.shields.io/badge/-Appwrite-black?style=for-the-badge&logoColor=white&logo=appwrite&color=FD366E" alt="appwrite" />
 </div>
 
-<h3 align="center">Um Sistema de Gerenciamento de Saúde</h3>
+<h3 align="center">Sistema de Gerenciamento de Saúde - SaudeTech</h3>
 
 <div align="center">
   Construa este projeto passo a passo com nosso tutorial detalhado no <a href="https://www.youtube.com/@javascriptmastery/videos" target="_blank"><b>JavaScript Mastery</b></a> no YouTube. Junte-se à família JSM!
@@ -32,8 +29,6 @@
 ## <a name="introducao">🤖 Introdução</a>
 
 Uma aplicação de gerenciamento de pacientes na área de saúde que permite que os pacientes se cadastrem, agendem e gerenciem seus compromissos com médicos, com ferramentas administrativas para agendamento, confirmação e cancelamento de consultas, além de notificações por SMS, tudo construído usando Next.js.
-
-Se você está começando e precisa de ajuda ou enfrenta algum bug, junte-se à nossa comunidade ativa no Discord com mais de **34k+** membros. É um lugar onde todos se ajudam.
 
 ## <a name="stack-tecnologico">⚙️ Stack Tecnológico</a>
 
