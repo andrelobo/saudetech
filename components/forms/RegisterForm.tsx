@@ -308,7 +308,7 @@ const RegisterForm = ({ user }: { user: User }) => {
 
         <section className="space-y-6">
           <div className="mb-9 space-y-1">
-            <h2 className="sub-header">Identification and Verfication</h2>
+            <h2 className="sub-header">Identification and Verification</h2>
           </div>
 
           <CustomFormField
@@ -317,9 +317,10 @@ const RegisterForm = ({ user }: { user: User }) => {
             name="identificationType"
             label="Identification Type"
             placeholder="Select identification type"
+            rules={{ required: "Identification type is required" }} // Exemplo de validação
           >
-            {IdentificationTypes.map((type, i) => (
-              <SelectItem key={type + i} value={type}>
+            {IdentificationTypes.map((type) => (
+              <SelectItem key={type} value={type}>
                 {type}
               </SelectItem>
             ))}
@@ -331,16 +332,18 @@ const RegisterForm = ({ user }: { user: User }) => {
             name="identificationNumber"
             label="Identification Number"
             placeholder="123456789"
+            rules={{ required: "Identification number is required" }} // Exemplo de validação
           />
 
           <CustomFormField
             fieldType={FormFieldType.SKELETON}
             control={form.control}
             name="identificationDocument"
-            label="Scanned Copy of Identification Document"
+            label="Upload Scanned Copy of Identification Document"
             renderSkeleton={(field) => (
               <FormControl>
                 <FileUploader files={field.value} onChange={field.onChange} />
+                {/* Adicionar uma mensagem de estado aqui, se necessário */}
               </FormControl>
             )}
           />

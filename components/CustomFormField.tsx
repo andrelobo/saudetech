@@ -2,7 +2,7 @@
 import { E164Number } from "libphonenumber-js/core";
 import Image from "next/image";
 import ReactDatePicker from "react-datepicker";
-import { Control } from "react-hook-form";
+import { Control, RegisterOptions, useController } from "react-hook-form";
 import PhoneInput from "react-phone-number-input";
 
 import { Checkbox } from "./ui/checkbox";
@@ -25,6 +25,7 @@ export enum FormFieldType {
   DATE_PICKER = "datePicker",
   SELECT = "select",
   SKELETON = "skeleton",
+  CUSTOM = "CUSTOM",
 }
 
 interface CustomProps {
@@ -37,9 +38,11 @@ interface CustomProps {
   disabled?: boolean;
   dateFormat?: string;
   showTimeSelect?: boolean;
+  rules?: RegisterOptions; // Adiciona a propriedade rules
   children?: React.ReactNode;
   renderSkeleton?: (field: any) => React.ReactNode;
   fieldType: FormFieldType;
+  renderCustom?: (field: any) => JSX.Element; // Adicionado para permitir renderização customizada
 }
 
 const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
@@ -144,6 +147,8 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
       );
     case FormFieldType.SKELETON:
       return props.renderSkeleton ? props.renderSkeleton(field) : null;
+    case FormFieldType.CUSTOM:
+      return props.renderCustom ? props.renderCustom(field) : null; // Renderiza componente customizado, se disponível
     default:
       return null;
   }
@@ -162,7 +167,6 @@ const CustomFormField = (props: CustomProps) => {
             <FormLabel className="shad-input-label">{label}</FormLabel>
           )}
           <RenderInput field={field} props={props} />
-
           <FormMessage className="shad-error" />
         </FormItem>
       )}

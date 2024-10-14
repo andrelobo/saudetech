@@ -27,6 +27,7 @@ export const PasskeyModal = () => {
   const [passkey, setPasskey] = useState("");
   const [error, setError] = useState("");
 
+  // Obtém a chave de acesso do localStorage se estiver disponível
   const encryptedKey =
     typeof window !== "undefined"
       ? window.localStorage.getItem("accessKey")
@@ -35,14 +36,19 @@ export const PasskeyModal = () => {
   useEffect(() => {
     const accessKey = encryptedKey && decryptKey(encryptedKey);
 
-    if (path)
-      if (accessKey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY!.toString()) {
+    // Obtém a chave do ambiente
+    const adminPasskey = process.env.NEXT_PUBLIC_ADMIN_PASSKEY || "";
+
+    // Verifica se a passkey da URL corresponde à chave do ambiente
+    if (path) {
+      if (accessKey === adminPasskey) {
         setOpen(false);
         router.push("/admin");
       } else {
         setOpen(true);
       }
-  }, [encryptedKey]);
+    }
+  }, [encryptedKey, path, router]);
 
   const closeModal = () => {
     setOpen(false);
@@ -54,12 +60,13 @@ export const PasskeyModal = () => {
   ) => {
     e.preventDefault();
 
-    if (passkey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
+    const adminPasskey = process.env.NEXT_PUBLIC_ADMIN_PASSKEY || "";
+
+    if (passkey === adminPasskey) {
       const encryptedKey = encryptKey(passkey);
-
       localStorage.setItem("accessKey", encryptedKey);
-
       setOpen(false);
+      router.push("/admin");
     } else {
       setError("Invalid passkey. Please try again.");
     }
@@ -76,7 +83,7 @@ export const PasskeyModal = () => {
               alt="close"
               width={20}
               height={20}
-              onClick={() => closeModal()}
+              onClick={closeModal}
               className="cursor-pointer"
             />
           </AlertDialogTitle>

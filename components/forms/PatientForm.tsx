@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -18,6 +18,7 @@ export const PatientForm = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
+  // Configuração do formulário com validação
   const form = useForm<z.infer<typeof UserFormValidation>>({
     resolver: zodResolver(UserFormValidation),
     defaultValues: {
@@ -27,9 +28,14 @@ export const PatientForm = () => {
     },
   });
 
+  // Efeito para verificar variável de ambiente
+  useEffect(() => {
+    console.log("Teste de variável:", process.env.NEXT_PUBLIC_TEST_VARIABLE);
+  }, []);
+
+  // Função para tratar o envio do formulário
   const onSubmit = async (values: z.infer<typeof UserFormValidation>) => {
     setIsLoading(true);
-
     try {
       const user = {
         name: values.name,
@@ -37,16 +43,18 @@ export const PatientForm = () => {
         phone: values.phone,
       };
 
+      console.log("Submitting user:", user); // Log para verificar os dados enviados
+
       const newUser = await createUser(user);
 
       if (newUser) {
         router.push(`/patients/${newUser.$id}/register`);
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error during user submission:", error);
+    } finally {
+      setIsLoading(false); // Garantindo que o loading seja desligado
     }
-
-    setIsLoading(false);
   };
 
   return (

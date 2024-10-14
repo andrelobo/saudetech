@@ -21,6 +21,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import CustomFormField, { FormFieldType } from "../CustomFormField";
 import SubmitButton from "../SubmitButton";
 import { Form } from "../ui/form";
+import { type } from "os";
 
 export const AppointmentForm = ({
   userId,
@@ -101,6 +102,7 @@ export const AppointmentForm = ({
             cancellationReason: values.cancellationReason,
           },
           type,
+          timeZone: "America/Manaus", // Fuso horário de Manaus, Amazonas
         };
 
         const updatedAppointment = await updateAppointment(appointmentToUpdate);
